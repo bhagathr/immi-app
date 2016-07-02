@@ -1,0 +1,158 @@
+<div ng-controller="View1Ctrl" layout="column" ng-cloak class="md-inline-form">
+  <md-content md-theme="docs-dark" layout-padding>
+    <div layout-gt-sm="row">
+      <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+        <md-input-container>
+          <label>Email</label>
+          <input ng-model="user.email" type="email" required>
+        </md-input-container>
+        <md-button class="md-raised md-primary">Retrieve</md-button>
+    </section>
+    </div>
+    <div>
+      <section layout-sm="column" layout-align="center center" layout-wrap>
+        <md-subheader class="md-primary">P E R S O N A L&nbsp;&nbsp;&nbsp;&nbsp;D E T A I L S</md-subheader>
+        <div layout-gt-sm="row">
+          <md-input-container>
+            <label>Title</label>
+            <input ng-model="user.title">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>First name</label>
+            <input ng-model="user.firstName" required>
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Last Name</label>
+            <input ng-model="user.lastName" required>
+          </md-input-container>
+        </div>
+        <div layout-gt-sm="row">
+          <md-datepicker ng-model="user.dob" md-placeholder="Date of Birth">
+          </md-datepicker>
+          <md-input-container class="md-block" flex-gt-xs>
+              <label>Age</label>
+              <input ng-model="user.age" disabled>
+          </md-input-container>  
+        </div>
+        <md-input-container class="md-block">
+          <label>Address</label>
+          <input ng-model="user.address">
+        </md-input-container>
+        <md-input-container md-no-float class="md-block">
+          <input ng-model="user.address2" placeholder="Address 2">
+        </md-input-container>
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>City</label>
+            <input ng-model="user.city">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>State</label>
+            <md-select ng-model="user.state">
+              <md-option ng-repeat="state in states" value="{{state.abbrev}}">
+                {{state.abbrev}}
+              </md-option>
+            </md-select>
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Postal Code</label>
+            <input name="postalCode" ng-model="user.postalCode" placeholder="123456"
+                   required ng-pattern="/^[0-9]*$/" md-maxlength="6">
+            <div ng-messages="userForm.postalCode.$error" role="alert" multiple>
+              <div ng-message="required" class="my-message">You must supply a postal code.</div>
+              <div ng-message="pattern" class="my-message">That doesn't look like a valid postal
+                code.
+              </div>
+              <div ng-message="md-maxlength" class="my-message">
+                Don't use the long version silly...we don't need to be that specific...
+              </div>
+            </div>
+          </md-input-container>
+        </div>
+      </section>
+      <section layout-sm="column" layout-align="center center" layout-wrap>
+        <md-subheader class="md-primary">E D U C A T I O N&nbsp;&nbsp;&nbsp;&nbsp;D E T A I L S</md-subheader>
+        <div layout-gt-xs="row" ng-repeat="university in user.education">
+          <md-input-container class="md-block" flex-gt-xs>
+            <label>University</label>
+            <input ng-model="university.name">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-xs>
+            <label>Degree</label>
+            <input ng-model="university.degree">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-xs>
+            <label>Stream</label>
+            <input ng-model="university.stream">
+          </md-input-container>
+          <md-datepicker ng-model="university.startDate" md-placeholder="Start Date">
+          </md-datepicker>
+          <md-datepicker ng-model="university.endDate" md-placeholder="End Date">
+          </md-datepicker>
+          <md-checkbox ng-model="company.local" aria-label="Checkbox 1">
+            Australia
+          </md-checkbox>
+          <md-button ng-click="addUniversity()">
+            <md-icon> add </md-icon>
+          </md-button>
+          <md-button ng-click="removeUniversity(index)">
+            <md-icon> remove </md-icon>
+          </md-button>
+        </div>
+      </section>  
+      <section layout-sm="column" layout-align="center center" layout-wrap>
+        <md-subheader class="md-primary">P R O F E S S I O N A L&nbsp;&nbsp;&nbsp;&nbsp;E X P E R I E N C E</md-subheader>
+        <div layout-gt-xs="row" ng-repeat="company in user.workex">
+          <md-input-container class="md-block" flex-gt-xs>
+            <label>Company</label>
+            <input ng-model="company.name">
+          </md-input-container>
+          <md-datepicker ng-model="company.startDate" md-placeholder="Start Date">
+          </md-datepicker>
+          <md-datepicker ng-model="company.endDate" md-placeholder="End Date">
+          </md-datepicker>
+          <md-checkbox ng-model="company.local" aria-label="Checkbox 1">
+            Australia
+          </md-checkbox>
+          <md-button ng-click="addCompany()">
+            <md-icon> add </md-icon>
+          </md-button>
+          <md-button ng-click="removeCompany(index)">
+            <md-icon> remove </md-icon>
+          </md-button>
+        </div>
+      </section>
+      <section>
+          <md-subheader class="md-primary">E N G L I S H&nbsp;&nbsp;&nbsp;&nbsp;S K I L L S</md-subheader>
+          <md-radio-group ng-model="user.englishTest">
+            <md-radio-button value="ieltsa" class="md-primary">IELTS Academic</md-radio-button>
+            <md-radio-button value="ieltsg"> IELTS General </md-radio-button>
+            <md-radio-button value="ptea"> PTE Academic </md-radio-button>
+            <md-radio-button value="pteg"> PTE General </md-radio-button>
+          </md-radio-group>
+          <div layout-gt-sm="row">
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Listening</label>
+              <input ng-model="user.englishTest.listening">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Writing</label>
+              <input ng-model="user.englishTest.writing">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Reading</label>
+              <input ng-model="user.englishTest.reading">
+            </md-input-container>
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Speaking</label>
+              <input ng-model="user.englishTest.speaking">
+            </md-input-container>
+          </div>  
+      </section>
+        <md-input-container class="md-block">
+          <label>Notes</label>
+          <textarea ng-model="user.notes" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+        </md-input-container>
+    </div>
+  </md-content>
+</div>
